@@ -6,3 +6,5 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from sklearn.compose import ColumnTransformer
 
+#load dataset
+housing = pd.read_csv('Cali_housing_predict/housing.csv')
