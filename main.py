@@ -29,4 +29,7 @@ housing = strat_train_set.copy()
 #Separate features and labels
 housing_labels = housing['median_house_value'].copy()
 housing_features = housing.drop('median_house_value', axis = 1).copy()
+#4. Separate numerical and categorical columns
+num_attributes = housing_features.drop('ocean_proximity', axis = 1).columns.tolist()
+cat_attributes = ['ocean_proximity']
 
