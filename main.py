@@ -23,3 +23,6 @@ for train_index, test_index in split.split(housing, housing["income_cat"]):
     strat_train_set = housing.loc[train_index].drop('income_cat', axis = 1)
     strat_test_set = housing.loc[test_index].drop('income_cat', axis = 1)
 
+#3. Working on the copy of the training data
+housing = strat_train_set.copy()
+
