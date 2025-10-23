@@ -33,3 +33,22 @@ housing_features = housing.drop('median_house_value', axis = 1).copy()
 num_attributes = housing_features.drop('ocean_proximity', axis = 1).columns.tolist()
 cat_attributes = ['ocean_proximity']
 
+#5. Making Pipelines
+#Numerical Pipeline
+
+num_pipeline = Pipeline([
+    ('imputer', SimpleImputer(strategy='median')),
+    ('scaler', StandardScaler())
+])
+
+#Categorical Pipeline
+cat_pipeline = Pipeline([
+    ('one_hot', OneHotEncoder(handle_unknown='ignore'))
+])
+
+#Full pipeline
+full_pipeline = ColumnTransformer([
+    ('num', num_pipeline, num_attributes),
+    ('cat', cat_pipeline, cat_attributes)
+])
+
