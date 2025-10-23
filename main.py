@@ -8,6 +8,8 @@ from sklearn.compose import ColumnTransformer
 from sklearn.linear_model import LinearRegression
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.tree import DecisionTreeRegressor
+from sklearn.metrics import root_mean_squared_error
+from sklearn.model_selection import cross_val_score
 
 # 1. load dataset
 housing = pd.read_csv("Cali_housing_predict/housing.csv")
@@ -69,11 +71,28 @@ housing_features_transformed = pd.DataFrame(
 lin_reg = LinearRegression()
 lin_reg.fit(housing_features_transformed, housing_labels)
 lin_pred = lin_reg.predict(housing_features_transformed)
+lin_rsme = root_mean_squared_error(housing_labels, lin_pred)
+print(f'RSME of Linear Regression: {lin_rsme}')
+
+lin_cross_val = -cross_val_score(lin_reg, housing_features_transformed, housing_labels, cv=10, scoring='neg_root_mean_squared_error')
+print(f"Cross Val Error of Linear Regression: {lin_cross_val.mean()}\n")
+
 #Decision Tree
 tree_reg = DecisionTreeRegressor()
 tree_reg.fit(housing_features_transformed, housing_labels)
 tree_pred = tree_reg.predict(housing_features_transformed)
+tree_rsme = root_mean_squared_error(housing_labels, tree_pred)
+print(f"RSME of Decision Tree: {tree_rsme}")
+
+tree_cross_val = -cross_val_score(tree_reg, housing_features_transformed, housing_labels, cv=10, scoring='neg_root_mean_squared_error')
+print(f"Cross Val Error of Decision Tree: {tree_cross_val.mean()}\n")
+
 #Random Forest 
 random_forest_reg = RandomForestRegressor()
 random_forest_reg.fit(housing_features_transformed, housing_labels)
 random_forest_pred = random_forest_reg.predict(housing_features_transformed)
+random_forest_rsme = root_mean_squared_error(housing_labels, random_forest_pred)
+print(f"RSME of Random Forest: {random_forest_rsme}")
+
+random_forest_cross_val = -cross_val_score(random_forest_reg, housing_features_transformed, housing_labels, cv=10, scoring='neg_root_mean_squared_error')
+print(f"Cross Val Error of Random Forest: {random_forest_cross_val.mean()}\n")
