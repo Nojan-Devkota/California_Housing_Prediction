@@ -55,4 +55,8 @@ full_pipeline = ColumnTransformer([
 
 #6. Transform the data
 housing_features_transformed = full_pipeline.fit_transform(housing_features)
-print(housing_features_transformed.shape)
+housing_features_transformed = pd.DataFrame(
+    housing_features_transformed,
+    columns= full_pipeline.get_feature_names_out(),
+    index= housing_features.index
+)
