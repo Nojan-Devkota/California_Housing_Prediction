@@ -5,6 +5,9 @@ from sklearn.impute import SimpleImputer
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from sklearn.compose import ColumnTransformer
+from sklearn.linear_model import LinearRegression
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.tree import DecisionTreeRegressor
 
 # 1. load dataset
 housing = pd.read_csv("Cali_housing_predict/housing.csv")
@@ -60,3 +63,17 @@ housing_features_transformed = pd.DataFrame(
     columns= full_pipeline.get_feature_names_out(),
     index= housing_features.index
 )
+
+#7. Train the model
+# Linear Regression
+lin_reg = LinearRegression()
+lin_reg.fit(housing_features_transformed, housing_labels)
+lin_pred = lin_reg.predict(housing_features_transformed)
+#Decision Tree
+tree_reg = DecisionTreeRegressor()
+tree_reg.fit(housing_features_transformed, housing_labels)
+tree_pred = tree_reg.predict(housing_features_transformed)
+#Random Forest 
+random_forest_reg = RandomForestRegressor()
+random_forest_reg.fit(housing_features_transformed, housing_labels)
+random_forest_pred = random_forest_reg.predict(housing_features_transformed)
